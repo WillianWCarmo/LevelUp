@@ -1,62 +1,73 @@
 {% extends "base.html" %}
+
 {% block content %}
 
-<h1>🎮 Todos os Jogos</h1>
+<h1>🔎 Resultado da Pesquisa</h1>
 
 <p>
-    Confira os jogos disponíveis no catálogo.
+    Resultados para:
+    <strong>{{ termo }}</strong>
 </p>
-
-<!-- Mostra a quantidade de jogos -->
-<p class="contador">
-    <strong>{{ jogos|length }}</strong>
-    jogo{{ 's' if jogos|length != 1 else '' }}
-    encontrado{{ 's' if jogos|length != 1 else '' }}
-</p>
-
 
 {% if jogos %}
+
 <div class="jogos">
-    <!-- Percorre os jogos -->
+
+    <!-- Percorre os jogos encontrados -->
     {% for jogo in jogos %}
 
     <div class="jogo">
+
         <img src="{{ jogo.imagem }}" alt="{{ jogo.nome }}">
+
         <h2>{{ jogo.nome }}</h2>
+
         <p>{{ jogo.descricao }}</p>
+
         <p>
             <strong>Gênero:</strong>
             {{ jogo.genero }}
         </p>
+
         <p>
             <strong>Plataforma:</strong>
             {{ jogo.plataforma }}
         </p>
+
         <p class="preco">
             <strong>Preço:</strong>
             R$ {{ "%.2f"|format(jogo.preco) }}
         </p>
+
         <a href="/jogo/{{ jogo.id }}" class="btn-detalhes">
             Ver detalhes
         </a>
+
     </div>
 
     {% endfor %}
+
 </div>
+
 {% else %}
 
-<!-- Caso não tenha jogos -->
+<!-- Caso nenhum jogo seja encontrado -->
 <div class="sem-jogos">
-    <p>😢 Nenhum jogo encontrado no catálogo.</p>
+
+    <p>
+        😢 Nenhum jogo encontrado para "{{ termo }}".
+    </p>
+
 </div>
 
 {% endif %}
 
-<!-- Volta para a página inicial -->
 <div class="botao-ver-todos">
-    <a href="/" class="btn-ver-todos">
-        ← Voltar para a Home
+
+    <a href="/jogos" class="btn-ver-todos">
+        ← Voltar para jogos
     </a>
+
 </div>
 
 {% endblock %}

@@ -1,9 +1,25 @@
-# from sqlalchemy import create_engine
-# from sqlalchemy.orm import sessionmaker, declarative_base
+from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker, declarative_base
 
-# DATABASE_URL = "sqlite:///dados.db"
-# engine = create_engine(DATABASE_URL, echo = False)
 
-# Session = sessionmaker(bind = engine, autoflush= False, autocommit= False)
+# Configuração do banco
+DATABASE_URL = "mysql+pymysql://root:1234@localhost/catalogo_jogos"
 
-# Base = declarative_base()
+
+# Cria a conexão com o banco
+engine = create_engine(
+    DATABASE_URL,
+    echo=False
+)
+
+
+# Cria as sessões
+Session = sessionmaker(
+    bind=engine,
+    autoflush=False,
+    autocommit=False
+)
+
+
+# Base usada pelos Models
+Base = declarative_base()
